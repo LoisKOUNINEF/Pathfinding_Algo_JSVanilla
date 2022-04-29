@@ -1,4 +1,5 @@
 import { generateQueryConstructor } from '../utils/object.utils.js'
+import GridCell from './GridCell.class.js'
 
 class Grid {
 
@@ -41,7 +42,19 @@ class Grid {
     })
   }
 
-  #buildGridCells() {}
+  #buildGridCells() {
+    const { numberRows, numberColumns } = this
+    this.gridcells = {}
+
+    for ( let row = 0; row < numberRows; row++ ) {
+      for ( let col = 0; col < numberColumns; col++ ) {
+        const gridcell = new GridCell({ grid: this, row, col })
+        gridcell.render()
+
+        this.gridcells[ gridcell.position ] = gridcell
+      }
+    }
+  }
   #buildGridSvg() {}
 
   draw() {}
