@@ -32,7 +32,9 @@ class GridCell {
     gridElement.append(gridCellElement)
   }
 
-  #renderGridCell() {}
+  #renderGridCell() {
+    this.isBlocked = false
+  }
 
   #renderHtml() {
     const { gridCellElement, grid: { settings: { cellSize, borderSize, borderColor } } } = this
@@ -46,7 +48,33 @@ class GridCell {
 
   #renderOutInCells() {}
 
-  #renderEvents() {}
+  renderBlockedCells() {
+    this.gridCellElement.classList[ this.isBlocked ? 'add' : 'remove' ]( 'blocked' )
+  }
+
+  #renderEvents() {
+    this.#renderClickEvent()
+    this.#renderHoverEvent()
+    this.#renderDragDropEvent()
+  }
+
+  #renderClickEvent() {
+    const { gridCellElement } = this
+
+    gridCellElement.addEventListener('click', _ => {
+      this.isBlocked = !this.isBlocked
+      this.renderBlockedCells()
+    })
+  }
+
+  #renderHoverEvent() {
+
+  }
+
+  #renderDragDropEvent() {
+
+  }
+
 }
 
 export default GridCell
