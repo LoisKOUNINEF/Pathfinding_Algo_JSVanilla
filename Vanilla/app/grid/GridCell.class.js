@@ -68,7 +68,19 @@ class GridCell {
   }
 
   #renderHoverEvent() {
+    const { gridCellElement } = this
 
+    gridCellElement.addEventListener( 'mouseover', _ => {
+      if (this.isOutcell || this.isInCell ) {
+        gridCellElement.style.cursor = 'grab'
+      }
+      else if ( !this.isBlocked ) {
+        gridCellElement.style.cursor = 'pointer'
+      }
+      else {
+        gridCellElement.style.cursor = 'crosshair'
+      }
+    })
   }
 
   #renderDragDropEvent() {
