@@ -18,7 +18,7 @@ class GridCell {
     this.#renderElement()
     this.#renderGridCell()
     this.#renderHtml()
-    this.#renderOutInCells()
+    this.renderOutInCells()
     this.#renderEvents()
   }
 
@@ -36,7 +36,7 @@ class GridCell {
     const { grid: { numberColumns, numberRows } } = this
 
     this.isBlocked = false
-    this.isOutcell = this.position === '0|0'
+    this.isOutCell = this.position === '0|0'
     this.isInCell = this.position === `${ numberRows - 1}|${ numberColumns - 1 }`
   }
 
@@ -50,8 +50,8 @@ class GridCell {
     })
   }
 
-  #renderOutInCells() {
-    this.gridCellElement.classList[ this.isOutcell ? 'add' : 'remove' ]( 'out-cell' )
+  renderOutInCells() {
+    this.gridCellElement.classList[ this.isOutCell ? 'add' : 'remove' ]( 'out-cell' )
     this.gridCellElement.classList[ this.isInCell ? 'add' : 'remove' ]( 'in-cell' )
   }
 
@@ -69,8 +69,8 @@ class GridCell {
     const { gridCellElement } = this
 
     gridCellElement.addEventListener('click', _ => {
-      if (this.isOutcell || this.isInCell ) return
-      this.isBlocked = !this.isBlocked
+      if (this.isOutCell || this.isInCell ) return
+        this.isBlocked = !this.isBlocked
       this.renderBlockedCells()
     })
   }
@@ -79,7 +79,7 @@ class GridCell {
     const { gridCellElement } = this
 
     gridCellElement.addEventListener( 'mouseover', _ => {
-      if (this.isOutcell || this.isInCell ) {
+      if (this.isOutCell || this.isInCell ) {
         gridCellElement.style.cursor = 'grab'
       }
       else if ( !this.isBlocked ) {
@@ -92,8 +92,39 @@ class GridCell {
   }
 
   #renderDragDropEvent() {
+    const { gridCellElement, grid } = this
+
+    gridCellElement.addEventListener('dragover', event => {
+      if ( dontAllowDrop.call( this ) ) return
+        event.preventDefault()
+    })
+
+    gridCellElement.addEventListener('dragstart', event => {
+      if ( dontAllowDrag.call( this ) ) {
+        event.preventDefault()
+        return
+      }
+      grid.draggedGridCell = this
+    })
+
+    gridCellElement.addEventListener('drop', _ => {
+      this.resetCell()
+
+      this.isOutCell = grid.draggedGridCell.isOutCell
+      this.isInCell = grid.draggedGridCell.isInCell
+
+      this.renderOutInCells()
+
+      grid.draggedGridCell.resetCell()
+      // grid.draw()
+    })
+
+    function dontAllowDrop() {}
+    function dontAllowDrag() {}
 
   }
+
+  resetCell() {}
 
 }
 
