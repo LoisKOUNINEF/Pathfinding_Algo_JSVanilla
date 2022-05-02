@@ -57,8 +57,8 @@ function renderDragDropEvent() {
     this.renderGridCellDynamics()
 
     grid.draggedGridCell.resetCell()
-      // grid.draw()
-    })
+    grid.draw()
+  })
 
 }
 
