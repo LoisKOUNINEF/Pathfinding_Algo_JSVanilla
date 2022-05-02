@@ -11,3 +11,11 @@ body {
 .gridcell.blocked {
   background-color: #ccc;
 }
+
+.gridcell.out-cell {
+  background-color: green;
+}
+
+.gridcell.in-cell {
+  background-color: red;
+}

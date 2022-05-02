@@ -33,7 +33,11 @@ class GridCell {
   }
 
   #renderGridCell() {
+    const { grid: { numberColumns, numberRows } } = this
+
     this.isBlocked = false
+    this.isOutcell = this.position === '0|0'
+    this.isInCell = this.position === `${ numberRows - 1}|${ numberColumns - 1 }`
   }
 
   #renderHtml() {
@@ -46,7 +50,10 @@ class GridCell {
     })
   }
 
-  #renderOutInCells() {}
+  #renderOutInCells() {
+    this.gridCellElement.classList[ this.isOutcell ? 'add' : 'remove' ]( 'out-cell' )
+    this.gridCellElement.classList[ this.isInCell ? 'add' : 'remove' ]( 'in-cell' )
+  }
 
   renderBlockedCells() {
     this.gridCellElement.classList[ this.isBlocked ? 'add' : 'remove' ]( 'blocked' )
@@ -62,6 +69,7 @@ class GridCell {
     const { gridCellElement } = this
 
     gridCellElement.addEventListener('click', _ => {
+      if (this.isOutcell || this.isInCell ) return
       this.isBlocked = !this.isBlocked
       this.renderBlockedCells()
     })
