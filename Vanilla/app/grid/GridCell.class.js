@@ -48,6 +48,8 @@ class GridCell {
       height: `${ cellSize }px`,
       border: `${ borderSize }px solid ${ borderColor }`
     })
+
+    gridCellElement.setAttribute('draggable', true)
   }
 
   renderOutInCells() {
@@ -119,12 +121,30 @@ class GridCell {
       // grid.draw()
     })
 
-    function dontAllowDrop() {}
-    function dontAllowDrag() {}
+    function dontAllowDrop() {
+      const { gridCellElement, grid } = this
+
+      if ( grid.draggedGridCell.gridCellElement === gridCellElement ) return true
+      if ( grid.draggedGridCell.isOutCell && this.isInCell ) return true
+      if ( grid.draggedGridCell.isInCell && this.isOutCell ) return true
+
+      return false
+    }
+
+    function dontAllowDrag() {
+      return ( !this.isOutCell && !this.isInCell )
+    }
 
   }
 
-  resetCell() {}
+  resetCell() {
+    this.isInCell = false
+    this.isOutCell = false
+    this.isBlocked = false
+
+    this.renderOutInCells()
+    this.renderBlockedCells()
+  }
 
 }
 
