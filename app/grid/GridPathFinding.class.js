@@ -19,9 +19,9 @@ class GridPathFinding {
       const helperRow = []
 
       for (let col = 0; col < numberColumns; col++) {
-        const position = `${row}-${col}`
+        const position = `${row}|${col}`
         const cell = gridcells[ position ]
-        helperRow.push(cell.isBlocked ? 1 : 0 )
+        helperRow.push( cell.isBlocked ? 1 : 0 )
       }
       helperGrid.push(helperRow)
     }
@@ -48,7 +48,7 @@ class GridPathFinding {
   }
 
   generateColRow(position) {
-    return position.split( '-' ).map( item => parseInt( item )).reverse()
+    return position.split( '|' ).map( item => parseInt( item )).reverse()
   }
 
 }

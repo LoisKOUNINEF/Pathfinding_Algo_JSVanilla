@@ -13,7 +13,7 @@ class Grid {
   }
 
   get svgElement() {
-    return document.querySelector( this.settings.svgSelector )
+    return document.querySelector( this.settings.svgElement )
   }
 
   build() {

@@ -7,7 +7,7 @@ export default function () {
 }
 
 function renderClickEvent() {
-  const { gridCellElement } = this
+  const { grid, gridCellElement } = this
 
   gridCellElement.addEventListener('click', _ => {
     if ( this.isOutCell || this.isInCell ) return

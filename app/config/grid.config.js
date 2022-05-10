@@ -2,7 +2,7 @@ export default {
  settings:
   {
   gridSelector: '#grid',
-  svgSelector: '#gridSvg',
+  svgElement: '#gridSvg',
   cellSize: 50,
   borderSize: 1,
   borderColor: 'gray',
