@@ -11,7 +11,7 @@ class GridPathFinding {
     generateQueryConstructor.call(this, ...arguments)
   }
 
-  generateHelperPath() {
+  generateHelperGrid() {
     const {grid: { gridcells, numberRows, numberColumns }} = this
     const helperGrid = []
 
