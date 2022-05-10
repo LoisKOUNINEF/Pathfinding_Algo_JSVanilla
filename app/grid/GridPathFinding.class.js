@@ -27,7 +27,30 @@ class GridPathFinding {
     }
     return helperGrid
   }
-  generateHelperPath() {}
+
+  generateHelperPath() {
+    const helperGrid = this.generateHelperGrid()
+    const pathFindingGrid = new PathFindingGrid( helperGrid )
+
+    const outColRow = this.generateColRow( this.outCell.position )
+    const inColRow = this.generateColRow( this.inCell.position )
+
+    const aStarFinderConfig = {
+      weight: this.grid.settings.verticesWeight,
+    }
+    const aStarFinder = new AStarFinder( aStarFinderConfig )
+    const helperPath = aStarFinder.findPath(
+      ...outColRow,
+      ...inColRow,
+      pathFindingGrid
+      )
+    return helperPath
+  }
+
+  generateColRow(position) {
+    return position.split( '-' ).map( item => parseInt( item )).reverse()
+  }
+
 }
 
 export default GridPathFinding
