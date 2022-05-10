@@ -12,9 +12,22 @@ class GridPathFinding {
   }
 
   generateHelperPath() {
+    const {grid: { gridcells, numberRows, numberColumns }} = this
+    const helperGrid = []
 
+    for ( let row = 0; row < numberRows; row++ ) {
+      const helperRow = []
+
+      for (let col = 0; col < numberColumns; col++) {
+        const position = `${row}-${col}`
+        const cell = gridcells[ position ]
+        helperRow.push(cell.isBlocked ? 1 : 0 )
+      }
+      helperGrid.push(helperRow)
+    }
+    return helperGrid
   }
-
+  generateHelperPath() {}
 }
 
 export default GridPathFinding

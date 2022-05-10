@@ -13,6 +13,7 @@ function renderClickEvent() {
     if ( this.isOutCell || this.isInCell ) return
       this.isBlocked = !this.isBlocked
     this.renderGridCellDynamics()
+    grid.draw()
   })
 }
 
