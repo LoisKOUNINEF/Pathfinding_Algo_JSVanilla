@@ -12,6 +12,10 @@ class Grid {
     return document.querySelector( this.settings.gridSelector )
   }
 
+  get svgElement() {
+    return document.querySelector( this.settings.svgSelector )
+  }
+
   build() {
     this.#buildGridLayout()
     this.#buildGridCells()
@@ -57,7 +61,17 @@ class Grid {
     }
   }
 
-  #buildGridSvg() {}
+  #buildGridSvg() {
+    const { svgElement, gridWidth, gridHeight, gridMarginX, gridMarginY } = this
+
+    Object.assign( svgElement.style, {
+      width: `${ gridWidth }px`,
+      height: `${ gridHeight }px`,
+      left: `${ gridMarginX }px`,
+      top: `${gridMarginY }px`,
+    })
+    svgElement.setAttribute( 'viewbox', `0 0 ${ gridWidth } ${ gridHeight }` )
+  }
 
   draw() {
     const gridDraw = new GridDraw({ grid: this })

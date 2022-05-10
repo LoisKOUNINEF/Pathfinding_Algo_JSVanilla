@@ -17,8 +17,12 @@ class GridDraw {
     return gridcells.find( gridcell => gridcell.isInCell )
   }
 
+  get pathElement() {
+    return svgElement.querySelector( 'path' )
+  }
+
   draw() {
-    const { outCell, inCell, grid } = this
+    const { outCell, inCell, grid, grid: { svgElement } } = this
     const gridPathFinding = new GridPathFinding({ grid, outCell, inCell })
 
     this.helperPath = gridPathFinding.generateHelperPath()
